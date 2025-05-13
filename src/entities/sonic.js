@@ -3,11 +3,11 @@ import k from "../kaplayCtx";
 export function makeSonic(pos) {
   const sonic = k.add([
     k.sprite("sonic", { anim: "run" }),
-    k.scale(4),
+    k.scale(1),
     k.area(),
     k.anchor("center"),
     k.pos(pos),
-    k.body({ jumpForce: 1700 }),
+    k.body({ jumpForce: 1200 }),
     {
       ringCollectUI: null,
       setControls() {
