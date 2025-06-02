@@ -77,7 +77,11 @@ export default function game() {
 
     k.play("hurt", { volume: 0.5 });
     k.setData("current-score", score);
-    k.go("gameover", citySfx);
+    if (score >= 141) {
+      k.go("gameover", citySfx, true);
+    } else {
+      k.go("gameover", citySfx, false);
+    }
   });
 
   let gameSpeed = 300;
