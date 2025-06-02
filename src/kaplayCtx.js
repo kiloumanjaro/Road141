@@ -17,3 +17,11 @@ const k = kaplay({
 });
 
 export default k;
+
+// Add this near the top
+let _paused = true;
+export const gamePaused = {
+  get: () => _paused,
+  set: (v) => { _paused = v; }
+};
+
