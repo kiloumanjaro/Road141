@@ -3,13 +3,9 @@ import disclaimer from "./scenes/disclaimer";
 import game from "./scenes/game";
 import gameover from "./scenes/gameover";
 import mainMenu from "./scenes/mainMenu";
-import lose from "./scenes/lose";
-import credits from "./scenes/credits";
 
 k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
-k.loadSprite("up-close", "graphics/shaped.png");
-k.loadSprite("platforms", "graphics/illustrator.png");
-k.loadSprite("box", "graphics/box.png");
+k.loadSprite("platforms", "graphics/platforms.png");
 k.loadSprite("sonic", "graphics/ryan.png", {
   sliceX: 8,
   sliceY: 5,
@@ -66,7 +62,6 @@ k.scene("disclaimer", disclaimer);
 k.scene("credits", credits);
 k.scene("main-menu", mainMenu);
 k.scene("game", game);
-k.scene("lose", lose);
 k.scene("gameover", gameover);
 
 k.go("disclaimer");

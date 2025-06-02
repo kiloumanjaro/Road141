@@ -13,8 +13,7 @@ export default function gameover(citySfx, isCompleted = false) {
   citySfx.paused = true;
 =======
 export default function gameover(citySfx) {
-  if (citySfx) citySfx.paused = true;
->>>>>>> 431b4d50dfda812a8d46b2be8a68625cfda68fb3
+  citySfx.paused = true;
   let bestScore = k.getData("best-score");
   const currentScore = k.getData("current-score");
 
