@@ -88,7 +88,6 @@ export default function game() {
   ]);
 
   // Game variables
-  let gameSpeed = 500;
   let level = 1;
   let score = 0;
   let lives = 3;
@@ -226,7 +225,7 @@ export default function game() {
       
       
     }
-  });
+  };
 
   sonic.onCollide("portal", () => {
     if (gamePaused.get()) return;
