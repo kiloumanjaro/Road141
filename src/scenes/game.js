@@ -313,3 +313,6 @@ export default function game() {
     platforms[1].moveTo(platforms[0].pos.x + platforms[1].width * 4, 450);
   });
 }
+
+
+// force to main
