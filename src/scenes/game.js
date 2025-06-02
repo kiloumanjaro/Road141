@@ -63,7 +63,106 @@ export default function game() {
     k.scale(6)
   ]);
 
+  // Pause/Resume UI
+  const pauseButton = k.add([
+    k.text("PAUSE", { font: "mania", size: 48 }),
+    k.pos(20, 180),
+    k.area(),
+    k.color(255, 255, 255),
+    "pause-button"
+  ]);
 
+  let resumeButton = null;
+  let pauseOverlay = null;
+  let pauseText = null;
+
+  // Function to show pause menu
+  function showPauseMenu() {
+    // Create pause overlay
+    pauseOverlay = k.add([
+      k.rect(k.width(), k.height()),
+      k.pos(0, 0),
+      k.color(0, 0, 0),
+      k.opacity(0.8),
+      k.z(100)
+    ]);
+
+    // Create pause text
+    pauseText = k.add([
+      k.text("GAME PAUSED", { font: "mania", size: 72 }),
+      k.anchor("center"),
+      k.pos(k.center().x, k.center().y - 100),
+      k.color(255, 255, 255),
+      k.z(101)
+    ]);
+
+    // Create resume button
+    resumeButton = k.add([
+      k.text("Press P to Resume", { font: "mania", size: 48 }),
+      k.anchor("center"),
+      k.pos(k.center().x, k.center().y + 50),
+      k.area(),
+      k.color(255, 255, 0),
+      k.z(101),
+      "resume-button"
+    ]);
+
+    // Hide pause button when paused
+    pauseButton.hidden = true;
+  }
+
+  // Function to hide pause menu
+  function hidePauseMenu() {
+    // Remove pause overlay and buttons
+    if (pauseOverlay) {
+      k.destroy(pauseOverlay);
+      pauseOverlay = null;
+    }
+    if (resumeButton) {
+      k.destroy(resumeButton);
+      resumeButton = null;
+    }
+    if (pauseText) {
+      k.destroy(pauseText);
+      pauseText = null;
+    }
+    
+    // Show pause button again
+    pauseButton.hidden = false;
+  }
+
+  // Pause functionality
+  pauseButton.onClick(() => {
+    if (!gamePaused.get()) {
+      gamePaused.set(true);
+      showPauseMenu();
+    }
+  });
+
+  // Resume functionality
+  k.on("click", "resume-button", () => {
+    if (gamePaused.get()) {
+      gamePaused.set(false);
+      hidePauseMenu();
+    }
+  });
+
+  // Keyboard shortcut for pause/resume (P key)
+  k.onKeyPress("p", () => {
+    if (!gamePaused.get()) {
+      // Pause the game
+      gamePaused.set(true);
+      showPauseMenu();
+    } else {
+      // Resume the game
+      gamePaused.set(false);
+      hidePauseMenu();
+    }
+  });
+
+  // UI
+  const controlsText = k.add([
+    k.text("Press Space/Click/Touch to Jump! Press P to Pause!", { font: "mania", size: 64 }),
     let box = k.add([
     k.sprite("box"),
     k.anchor("center"),
@@ -105,7 +204,7 @@ const levelText = k.add([
   // Collisions
   sonic.onCollide("ring", (ring) => {
     let inc = 1;
-    if (teleporting) return;
+    if (teleporting || gamePaused.get()) return;
     k.play("ring", { volume: 0.5 });
     k.destroy(ring);
     if (level == 2) {
@@ -133,7 +232,6 @@ const levelText = k.add([
     }
 
     // game finished
-
     if (level === 3 && score >= 141) {
       score = 141;
       k.setData("current-score", score);
@@ -143,7 +241,7 @@ const levelText = k.add([
 
   sonic.onCollide("enemy", (enemy) => {
     let inc = 5;
-    if (teleporting) return;
+    if (teleporting || gamePaused.get()) return;
 
 
     enemy.play("crash");
@@ -182,7 +280,6 @@ const levelText = k.add([
         
       }
       // game finished
-
       if (level === 3 && score >= 141) {
         score = 141;
         k.setData("current-score", score);
@@ -284,12 +381,13 @@ k.wait(1, () => {
     });
   });
 
-  // Spawners
+  // Spawners - Modified to check pause state
   function spawnMotoBug() {
     const waitTime = k.rand(0.5, 2.5);
     if (!gamePaused.get()) {
       const motobug = makeMotobug(k.vec2(1950, 773));
       motobug.onUpdate(() => {
+        if (gameSpeed == 0 || gamePaused.get()) return;
         if (gamePaused.get() || gameSpeed === 0) return;
         motobug.move(-(gameSpeed + (gameSpeed < 3000 ? 300 : 0)), 0);
       });
@@ -302,7 +400,10 @@ k.wait(1, () => {
     const waitTime = level === 1 ? k.rand(0.5, 3) : level === 2 ? k.rand(0.5, 2) : k.rand(0.5, 1);
     if (!gamePaused.get()) {
       const ring = makeRing(k.vec2(1950, 745));
-      ring.onUpdate(() => ring.move(-gameSpeed, 0));
+      ring.onUpdate(() => {
+        if (gamePaused.get()) return;
+        ring.move(-gameSpeed, 0);
+      });
       ring.onExitScreen(() => ring.pos.x < 0 && k.destroy(ring));
     }
     k.wait(waitTime, spawnRing);
@@ -312,7 +413,10 @@ k.wait(1, () => {
     const waitTime = k.rand(5, 7);
     if (!gamePaused.get() && level > 1) {
       const portal = makePortal(k.vec2(1950, 735));
-      portal.onUpdate(() => portal.move(-gameSpeed, 0));
+      portal.onUpdate(() => {
+        if (gamePaused.get()) return;
+        portal.move(-gameSpeed, 0);
+      });
       portal.onExitScreen(() => portal.pos.x < 0 && k.destroy(portal));
     }
     k.wait(waitTime, spawnPortal);
@@ -332,8 +436,10 @@ k.wait(1, () => {
     "platform",
   ]);
 
-  // Game loop
+  // Game loop - Modified to check pause state
   k.onUpdate(() => {
+    if (gameSpeed == 0 || gamePaused.get()) return;
+    
   if (gamePaused.get() || gameSpeed === 0) return;
     if (bgPieces[1].pos.x < 0) {
       bgPieces[0].moveTo(bgPieces[1].pos.x + bgPieceWidth * 2, 0);
