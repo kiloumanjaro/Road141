@@ -3,8 +3,10 @@ import disclaimer from "./scenes/disclaimer";
 import game from "./scenes/game";
 import gameover from "./scenes/gameover";
 import mainMenu from "./scenes/mainMenu";
+import lose from "./scenes/lose";
 
 k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
+k.loadSprite("up-close", "graphics/up-close.png");
 k.loadSprite("platforms", "graphics/platforms.png");
 k.loadSprite("sonic", "graphics/ryan.png", {
   sliceX: 8,
@@ -60,6 +62,7 @@ k.loadSound("city", "sounds/city.mp3");
 k.scene("disclaimer", disclaimer);
 k.scene("main-menu", mainMenu);
 k.scene("game", game);
+k.scene("lose", lose);
 k.scene("gameover", gameover);
 
 k.go("disclaimer");

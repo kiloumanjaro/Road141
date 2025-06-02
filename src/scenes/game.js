@@ -129,7 +129,7 @@ export default function game() {
     if (level === 3 && score >= 141) {
       score = 141;
       k.setData("current-score", score);
-      k.go("gameover", citySfx); // move to ending
+      k.go("win", citySfx); // move to ending
     }
   });
 
@@ -171,7 +171,7 @@ export default function game() {
       if (level === 3 && score >= 141) {
         score = 141;
         k.setData("current-score", score);
-        k.go("gameover", citySfx); // move to ending
+        k.go("win", citySfx); // move to ending
       }
       return;
     }
@@ -194,7 +194,7 @@ export default function game() {
       gameSpeed = 0;
       k.wait(3, () => {
         k.setData("current-score", score);
-        k.go("gameover", citySfx);
+        k.go("lose", citySfx);
       });
       
       
