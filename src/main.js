@@ -8,11 +8,12 @@ k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
 k.loadSprite("platforms", "graphics/platforms.png");
 k.loadSprite("sonic", "graphics/ryan.png", {
   sliceX: 8,
-  sliceY: 4,
+  sliceY: 5,
   anims: {
     run: { from: 0, to: 7, loop: true, speed: 30 },
     jump: { from: 8, to: 15, loop: false, speed: 10 },
     dizzy: {from: 16, to: 21, loop: true, speed: 10},
+    idle: {from: 32, to: 36, loop: true, speed: 10},
     spawn: {from: 22, to: 29, loop: true, speed: 0.1}
   },
 });
@@ -58,6 +59,7 @@ k.loadSound("ring", "sounds/Ring.wav");
 k.loadSound("city", "sounds/city.mp3");
 
 k.scene("disclaimer", disclaimer);
+k.scene("credits", credits);
 k.scene("main-menu", mainMenu);
 k.scene("game", game);
 k.scene("gameover", gameover);
