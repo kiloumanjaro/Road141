@@ -8,7 +8,7 @@ k.loadSprite("play clicked", "graphics/play clicked.png");
 k.loadSprite("play unclicked", "graphics/play unclicked.png");
 
 export default function gameover(citySfx) {
-  citySfx.paused = true;
+if (citySfx) citySfx.paused = true;
   let bestScore = k.getData("best-score");
   const currentScore = k.getData("current-score");
 

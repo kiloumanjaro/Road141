@@ -4,17 +4,21 @@ import game from "./scenes/game";
 import gameover from "./scenes/gameover";
 import mainMenu from "./scenes/mainMenu";
 import credits from "./scenes/credits";
+import lose from "./scenes/lose";
 
 k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
-k.loadSprite("platforms", "graphics/platforms.png");
+k.loadSprite("up-close", "graphics/shaped.png");
+k.loadSprite("platforms", "graphics/illustrator.png");
+k.loadSprite("box", "graphics/box.png");
 k.loadSprite("sonic", "graphics/ryan.png", {
   sliceX: 8,
-  sliceY: 4,
+  sliceY: 5,
   anims: {
     run: { from: 0, to: 7, loop: true, speed: 30 },
     jump: { from: 8, to: 15, loop: false, speed: 10 },
     dizzy: {from: 16, to: 21, loop: true, speed: 10},
-    spawn: {from: 22, to: 29, loop: true, speed: 0.1}
+    spawn: {from: 22, to: 29, loop: true, speed: 0.1},
+    idle: {from: 32, to: 36, loop: true, speed: 10},
   },
 });
 k.loadSprite("ring", "graphics/ring.png", {
@@ -29,6 +33,7 @@ k.loadSprite("motobug", "graphics/motobug.png", {
   sliceY: 2,
   anims: {
     run: { from: 0, to: 7, loop: true, speed: 8 },
+    crash: { from: 8, to: 15, loop: true, speed: 12 },
   },
 });
 k.loadSprite('trafficLight', "graphics/trafficLight.png", {
@@ -62,6 +67,7 @@ k.scene("disclaimer", disclaimer);
 k.scene("credits", credits);
 k.scene("main-menu", mainMenu);
 k.scene("game", game);
+k.scene("lose", lose);
 k.scene("gameover", gameover);
 
 k.go("disclaimer");
