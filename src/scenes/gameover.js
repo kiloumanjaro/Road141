@@ -1,5 +1,6 @@
 import k from "../kaplayCtx";
 
+<<<<<<< HEAD
 k.loadSprite("ending", "graphics/ending.png");
 k.loadSprite("end screen", "graphics/end screen.png");
 k.loadSprite("restart clicked", "graphics/restart clicked.png");
@@ -10,6 +11,10 @@ k.loadSprite("play unclicked", "graphics/play unclicked.png");
 export default function gameover(citySfx, isCompleted = false) {
   
   citySfx.paused = true;
+=======
+export default function gameover(citySfx) {
+  if (citySfx) citySfx.paused = true;
+>>>>>>> 431b4d50dfda812a8d46b2be8a68625cfda68fb3
   let bestScore = k.getData("best-score");
   const currentScore = k.getData("current-score");
 
