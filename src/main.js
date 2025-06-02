@@ -4,6 +4,7 @@ import game from "./scenes/game";
 import gameover from "./scenes/gameover";
 import mainMenu from "./scenes/mainMenu";
 import lose from "./scenes/lose";
+import credits from "./scenes/credits";
 
 k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
 k.loadSprite("up-close", "graphics/shaped.png");
@@ -62,6 +63,7 @@ k.loadSound("ring", "sounds/Ring.wav");
 k.loadSound("city", "sounds/city.mp3");
 
 k.scene("disclaimer", disclaimer);
+k.scene("credits", credits);
 k.scene("main-menu", mainMenu);
 k.scene("game", game);
 k.scene("lose", lose);

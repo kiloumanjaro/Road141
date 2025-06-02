@@ -94,7 +94,6 @@ const levelText = k.add([
 ]);
 
   // Game variables
-  let gameSpeed = 500;
   let level = 1;
   let score = 0;
   let lives = 3;
@@ -149,6 +148,35 @@ sonic.onCollide("enemy", (enemy) => {
     return;
   }
 
+    k.play("hurt", { volume: 0.5 });
+    k.setData("current-score", score);
+    if (score >= 141) {
+      k.go("gameover", citySfx, true);
+    } else {
+      k.go("gameover", citySfx, false);
+    }
+  });
+
+  let gameSpeed = 300;
+  k.loop(1, () => {
+    gameSpeed += 50;
+  });
+
+  const spawnMotoBug = () => {
+    const motobug = makeMotobug(k.vec2(1950, 773));
+    motobug.onUpdate(() => {
+      if (gameSpeed < 3000) {
+        motobug.move(-(gameSpeed + 300), 0);
+        return;
+      }
+      motobug.move(-gameSpeed, 0);
+    });
+
+    motobug.onExitScreen(() => {
+      if (motobug.pos.x < 0) k.destroy(motobug);
+    });
+
+    sonic.play("dizzy");
   // If on ground, pause and wait for input
   k.play("hurt", { volume: 0.5 });
   sonic.play("idle");
