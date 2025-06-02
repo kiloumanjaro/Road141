@@ -6,15 +6,17 @@ import mainMenu from "./scenes/mainMenu";
 import lose from "./scenes/lose";
 
 k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
-k.loadSprite("up-close", "graphics/up-close.png");
-k.loadSprite("platforms", "graphics/platforms.png");
+k.loadSprite("up-close", "graphics/shaped.png");
+k.loadSprite("platforms", "graphics/illustrator.png");
+k.loadSprite("box", "graphics/box.png");
 k.loadSprite("sonic", "graphics/ryan.png", {
   sliceX: 8,
-  sliceY: 4,
+  sliceY: 5,
   anims: {
     run: { from: 0, to: 7, loop: true, speed: 30 },
     jump: { from: 8, to: 15, loop: false, speed: 10 },
     dizzy: {from: 16, to: 21, loop: true, speed: 10},
+    idle: {from: 32, to: 36, loop: true, speed: 10},
     spawn: {from: 22, to: 29, loop: true, speed: 0.1}
   },
 });
