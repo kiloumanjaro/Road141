@@ -28,10 +28,10 @@ export function makeSonic(pos) {
   ]);
 
   sonic.ringCollectUI = sonic.add([
-    k.text("", { font: "mania", size: 24 }),
+    k.text("", { font: "mania", size: 45 }),
     k.color(255, 255, 0),
     k.anchor("center"),
-    k.pos(30, -10),
+    k.pos(100, -13),
   ]);
 
   return sonic;

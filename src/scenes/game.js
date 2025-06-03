@@ -4,21 +4,18 @@ import { makeMotobug } from "../entities/motobug";
 import { makeRing } from "../entities/ring";
 import { makeTrafficLight } from "../entities/trafficLight";
 import { makePortal } from "../entities/portal";
+k.loadSprite("pause-unclicked", "graphics/pause-unclicked.png");
+k.loadSprite("pause-clicked", "graphics/pause-clicked.png");
 
+ gamePaused.set(false);
 function showTrafficLight(level) {
   gamePaused.set(true);
   k.wait(2, () => {
-    const text = k.add([
-      k.text(`Prepare for level ${level}!`, { font: "mania", size: 50 }),
-      k.anchor("center"),
-      k.pos(k.center()),
-    ]);
-
-    const trafficLight = makeTrafficLight(k.vec2(text.pos.x, text.pos.y - 220));
+    const center = k.vec2(k.width() / 2, (k.height() / 2) - 130);
+    const trafficLight = makeTrafficLight(center);
 
     k.wait(5, () => {
       gamePaused.set(false);
-      text.destroy();
       k.destroy(trafficLight);
     });
   });
@@ -54,21 +51,22 @@ export default function game() {
   sonic.setControls();
   sonic.setEvents();
 
+  
   //health
   let frame = 0;
   let healthBar = k.add([
     k.sprite("lives"),
     k.anchor("center"),
-    k.pos(200, 60),
-    k.scale(6)
+    k.pos(350, 60),
+    k.scale(7)
   ]);
 
   // Pause/Resume UI
   const pauseButton = k.add([
-    k.text("PAUSE", { font: "mania", size: 48 }),
-    k.pos(20, 180),
+    k.scale(3),
+    k.sprite("pause-unclicked"),
+    k.pos(k.center().x - 930, k.center().y - 520),
     k.area(),
-    k.color(255, 255, 255),
     "pause-button"
   ]);
 
@@ -126,19 +124,21 @@ export default function game() {
       k.destroy(pauseText);
       pauseText = null;
     }
-    
-    // Show pause button again
+
+    // Show pause button again and reset its sprite
     pauseButton.hidden = false;
+    pauseButton.use(k.sprite("pause-unclicked"));
   }
+
 
   // Pause functionality
   pauseButton.onClick(() => {
     if (!gamePaused.get()) {
       gamePaused.set(true);
+      pauseButton.use(k.sprite("pause-clicked"));  // Change to clicked version
       showPauseMenu();
     }
   });
-
   // Resume functionality
   k.on("click", "resume-button", () => {
     if (gamePaused.get()) {
@@ -160,22 +160,18 @@ export default function game() {
     }
   });
 
-  // UI
-  const controlsText = k.add([
-    k.text("Press Space/Click/Touch to Jump! Press P to Pause!", { font: "mania", size: 64 }),
-    let box = k.add([
-    k.sprite("box"),
-    k.anchor("center"),
-    k.pos(1720, 165),
-    k.scale(2.5)
-  ]);
-  
 
-  const dismissControlsAction = k.onButtonPress("jump", () => {
+const box = k.add([
+  k.sprite("box"),
+  k.anchor("center"),
+  k.pos(1720, 165),
+  k.scale(2.5)
+]);
+
+  gamePaused.set(true);
+  k.wait(0, () => {
     gamePaused.set(false);
-    dismissControlsAction.cancel();
   });
-
 
   const scoreText = k.add([
     k.text("00", { font: "mania", size: 90 }),
@@ -196,7 +192,7 @@ const levelText = k.add([
 
   // Game variables
   let gameSpeed = 500;
-  let level = 1;
+  let level = 2;
   let score = 0;
   let lives = 3;
   let teleporting = false;
@@ -241,8 +237,7 @@ const levelText = k.add([
 
   sonic.onCollide("enemy", (enemy) => {
     let inc = 5;
-    if (teleporting || gamePaused.get()) return;
-
+    if (teleporting || gamePaused.get() || sonic.invincible) return;
 
     enemy.play("crash");
     k.wait(0.6, () => {
@@ -273,7 +268,7 @@ const levelText = k.add([
         level++;
 
         showTrafficLight(level);
-        levelText.text = `LEVEL: ${level}`;
+        levelText.text = `LEVEL ${level}`;
         k.wait(3, () => {
           gameSpeed += 500;
         });
@@ -344,39 +339,54 @@ k.wait(1, () => {
     gameSpeed = level === 2 ? 1000 : 500;
     sonic.hidden = true;
     teleporting = true;
-    gamePaused.set(true);
+
 
     const warningText = k.add([
-      k.text(`Entered a portal. Teleporting back to level ${level}`, {
+      k.text(`Teleporting back to level ${level}`, {
         font: "mania",
         size: 64,
       }),
       k.anchor("center"),
       k.pos(k.center()),
     ]);
+    
+  
 
     k.wait(2, () => k.destroy(warningText));
     k.wait(1, () => {
       showTrafficLight(level);
-      const spawningPortal = makePortal(k.vec2(90, 700));
+      const spawningPortal = makePortal(k.vec2(200, 700));
       spawningPortal.play("open");
       k.wait(1, () => {
         spawningPortal.play("spin");
       })
       
-      k.wait(5, () => {
-        gamePaused.set(false);
-        sonic.hidden = false;
-        sonic.play("spawn");
-        sonic.play("run");
-        spawningPortal.play("close");
-        k.wait(1, () => {
-          k.destroy(spawningPortal);
-        })
-        teleporting = false;
-        scoreText.text = `${score}`;
-        levelText.text = `LEVEL ${level}`;
+    k.wait(7, () => {
+      
+      
+
+      // When the "spawn" animation finishes, play "run"
+      spawningPortal.play("close");
+      k.wait(2.2, () => {
+      gamePaused.set(false);
       });
+      sonic.hidden = false;
+      sonic.play("spawn");
+      k.wait(1, () => {
+        sonic.play("run");
+      });
+      sonic.invincible = true; // re-enable invincible on re-show
+      k.wait(3, () => {
+        sonic.invincible = false;
+      });
+      k.wait(0.5, () => {
+      k.destroy(spawningPortal); // destroy immediately  
+      });
+
+      teleporting = false;
+      scoreText.text = `${score}`;
+      levelText.text = `LEVEL ${level}`;
+    });
 
     });
   });
@@ -412,7 +422,7 @@ k.wait(1, () => {
   function spawnPortal() {
     const waitTime = k.rand(5, 7);
     if (!gamePaused.get() && level > 1) {
-      const portal = makePortal(k.vec2(1950, 735));
+      const portal = makePortal(k.vec2(1950, 700));
       portal.onUpdate(() => {
         if (gamePaused.get()) return;
         portal.move(-gameSpeed, 0);

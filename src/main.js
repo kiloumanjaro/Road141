@@ -17,7 +17,7 @@ k.loadSprite("sonic", "graphics/ryan.png", {
     run: { from: 0, to: 7, loop: true, speed: 30 },
     jump: { from: 8, to: 15, loop: false, speed: 10 },
     dizzy: {from: 16, to: 21, loop: true, speed: 10},
-    spawn: {from: 22, to: 29, loop: true, speed: 0.1},
+    spawn: {from: 22, to: 29, loop: true, speed: 10},
     idle: {from: 32, to: 36, loop: true, speed: 10},
   },
 });
@@ -49,13 +49,14 @@ k.loadSprite('portal', "graphics/portal.png", {
   anims: {
     spin: {from: 0, to: 7, loop: true, speed: 10},
     open: {from: 8, to: 13, loop: false, speed: 10},
-    close: {from: 13, to: 8, loop: false, speed: 10},
+    close: {from: 16, to: 23, loop: false, speed: 28},
   }
 });
 
 k.loadSprite('lives', "graphics/lives.png", {sliceX: 1, sliceY: 4});
 
 k.loadFont("mania", "fonts/mania.ttf");
+k.loadFont("pencilant", "fonts/pencilant.ttf");
 k.loadSound("destroy", "sounds/Destroy.wav");
 k.loadSound("hurt", "sounds/Hurt.wav");
 k.loadSound("hyper-ring", "sounds/HyperRing.wav");

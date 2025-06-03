@@ -25,9 +25,8 @@ export default function disclaimer() {
     "instruction-button"
   ]);
 
-  //Instruction button functionality
   instructionButton.onClick(() => {
-
+    // Your instruction button functionality here if needed
   });
 
   instructionButton.onHover(() => {
@@ -46,7 +45,6 @@ export default function disclaimer() {
     "star-button"
   ]);
 
-  //Star button click functionality
   starButton.onClick(() => {
     window.open("https://github.com/kiloumanjaro/Road141")
   });
@@ -67,7 +65,6 @@ export default function disclaimer() {
     "credit-button"
   ]);
 
-  //Credit button functionality
   creditButton.onClick(() => {
     k.go("credits");
   });
@@ -80,28 +77,13 @@ export default function disclaimer() {
     creditButton.scaleTo(3);
   });
 
-  const startButton = k.add([
-    k.sprite("start"),
-    k.anchor("center"),
-    k.scale(0.8),
-    k.pos(k.center().x - 20, 850),
-    k.area(), //allows the sprite to be clickable
-    "start-button" // tag for identification
-  ]);
-
-  startButton.onClick(() => {
+  // Remove startButton event handling
+  // Instead, add a global click handler to start the game
+  k.onClick(() => {
     k.go("game");
   });
 
-  startButton.onHover(() => {
-    startButton.scaleTo(0.85);
-  });
-
-  startButton.onHoverEnd(() => {
-    startButton.scaleTo(0.8);
-  });
-
-    k.add([
+  k.add([
     k.sprite("road 141 second"),
     k.anchor("center"),
     k.scale(0.9),

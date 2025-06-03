@@ -45,17 +45,13 @@ if (citySfx) citySfx.paused = true;
       k.sprite("end screen"),
       k.opacity(0.9),
     ]);
-    k.add([
-      k.text("GAME OVER", { font: "Pencilant-Script", size: 96 }),
-      k.anchor("center"),
-      k.pos(k.center().x, k.center().y - 400),
-    ]);     // part of gameover
+
 
     // Add the current score next to the "/141" on the chalkboard
     k.add([
       k.text(`${currentScore}`, { 
-        font: "mania", 
-        size: 200,
+        font: "pencilant",
+        size: 250,
         color: k.Color.WHITE 
       }),
       k.anchor("center"),
