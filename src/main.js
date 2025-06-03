@@ -19,7 +19,7 @@ k.loadSprite("sonic", "graphics/ryan.png", {
     dizzy: {from: 16, to: 21, loop: true, speed: 10},
     spawn: {from: 22, to: 29, loop: true, speed: 10},
     idle: {from: 32, to: 37, loop: true, speed: 10},
-    stand: {from: 38, to: 39, loop: true, speed: 2},
+    stand: {from: 38, to: 39, loop: true, speed: 3},
   },
 });
 k.loadSprite("ring", "graphics/ring.png", {
