@@ -55,7 +55,7 @@ if (citySfx) citySfx.paused = true;
         color: k.Color.WHITE 
       }),
       k.anchor("center"),
-      k.pos(k.center().x + 300, k.center().y - 230), // Position it to the left of "/141"
+      k.pos(k.center().x + 280, k.center().y - 230), // Position it to the left of "/141"
     ]);
   }
 

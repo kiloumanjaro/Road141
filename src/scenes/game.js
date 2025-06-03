@@ -81,7 +81,7 @@ export default function game() {
       k.rect(k.width(), k.height()),
       k.pos(0, 0),
       k.color(0, 0, 0),
-      k.opacity(0.8),
+      k.opacity(1),
       k.z(100)
     ]);
 

@@ -8,7 +8,7 @@ import lose from "./scenes/lose";
 
 k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
 k.loadSprite("up-close", "graphics/shaped.png");
-k.loadSprite("platforms", "graphics/illustrator.png");
+k.loadSprite("platforms", "graphics/floor.png");
 k.loadSprite("box", "graphics/box.png");
 k.loadSprite("sonic", "graphics/ryan.png", {
   sliceX: 8,
