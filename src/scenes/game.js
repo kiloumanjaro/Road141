@@ -81,6 +81,7 @@ function showTrafficLight(level) {
   ]);
 
   let resumeButton = null;
+  let mainmenuButton = null;
   let pauseOverlay = null;
   let pauseText = null;
 
@@ -117,6 +118,16 @@ function showTrafficLight(level) {
       "resume-button"
     ]);
 
+    mainmenuButton = k.add([
+      k.text("Press M to Main Menu", { font: "mania", size: 48 }),
+      k.anchor("center"),
+      k.pos(k.center().x, k.center().y + 150),
+      k.area(),
+      k.color(255, 255, 0),
+      k.z(101),
+      "mainmenu-button"
+    ]);
+
     // Hide pause button when paused
     pauseButton.hidden = true;
   }
@@ -150,17 +161,28 @@ function showTrafficLight(level) {
       pauseButton.use(k.sprite("pause-clicked"));  // Change to clicked version
       showPauseMenu();
     }
+  }); 
+
+  // Keyboard shortcut for main menu (M key)
+  k.onKeyPress("m", () => {
+    k.go("disclaimer");
   });
-  // Resume functionality
-  k.on("click", "resume-button", () => {
-    if (gamePaused.get()) {
+
+  // Keyboard shortcut for pause/resume (P key)
+  k.onKeyPress("p", () => {
+    if (!gamePaused.get()) {
+      // Pause the game
+      gamePaused.set(true);
+      showPauseMenu();
+    } else {
+      // Resume the game
       gamePaused.set(false);
       hidePauseMenu();
     }
   });
 
-  // Keyboard shortcut for pause/resume (P key)
-  k.onKeyPress("p", () => {
+  // Keyboard shortcut for pause/resume (Esc key)
+  k.onKeyPress("escape", () => {
     if (!gamePaused.get()) {
       // Pause the game
       gamePaused.set(true);
