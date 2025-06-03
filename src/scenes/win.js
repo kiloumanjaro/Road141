@@ -1,8 +1,15 @@
 import k from "../kaplayCtx";
 import { makeSonic } from "../entities/sonic";
+k.loadSound("Hooray", "sounds/Hooray.mp3");
 
 export default function lose(citySfx) {
   citySfx?.stop();
+
+  // Play background music
+  const bgMusic = k.play("Hooray", {
+    volume: 0.5,
+    loop: true
+  });
 
   k.setGravity(0);
   const bg = k.add([
@@ -83,5 +90,10 @@ export default function lose(citySfx) {
     if (canPressSpace) {
       startFadeOut();
     }
+  });
+
+  // Clean up music when leaving scene
+  k.onSceneLeave(() => {
+    bgMusic.stop();
   });
 }

@@ -6,6 +6,7 @@ import mainMenu from "./scenes/mainMenu";
 import credits from "./scenes/credits";
 import lose from "./scenes/lose";
 import win from "./scenes/win";
+import instructions from "./scenes/instructions";
 
 k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
 k.loadSprite("up-close", "graphics/shaped.png");
@@ -65,9 +66,13 @@ k.loadSound("hyper-ring", "sounds/HyperRing.wav");
 k.loadSound("jump", "sounds/Jump.wav");
 k.loadSound("ring", "sounds/Ring.wav");
 k.loadSound("city", "sounds/city.mp3");
+k.loadSound("lobby", "sounds/lobby.mp3");
+k.loadSound("Hooray", "sounds/Hooray.mp3");
+k.loadSound("Boo", "sounds/Boo.mp3");
 
 k.scene("disclaimer", disclaimer);
 k.scene("credits", credits);
+k.scene("instructions", instructions);
 k.scene("main-menu", mainMenu);
 k.scene("game", game);
 k.scene("lose", lose);

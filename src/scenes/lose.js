@@ -1,9 +1,15 @@
 import k from "../kaplayCtx";
 import { makeSonic } from "../entities/sonic";
+k.loadSound("Boo", "sounds/Boo.mp3");
 
 export default function lose(citySfx) {
   citySfx?.stop();
 
+  // Play background music
+  const bgMusic = k.play("Boo", {
+    volume: 0.5,
+    loop: true
+  });
   k.setGravity(0);
   const bg = k.add([
     k.sprite("up-close"),
@@ -83,5 +89,10 @@ export default function lose(citySfx) {
     if (canPressSpace) {
       startFadeOut();
     }
+  });
+
+  // Clean up music when leaving scene
+  k.onSceneLeave(() => {
+    bgMusic.stop();
   });
 }
