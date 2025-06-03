@@ -18,7 +18,8 @@ k.loadSprite("sonic", "graphics/ryan.png", {
     jump: { from: 8, to: 15, loop: false, speed: 10 },
     dizzy: {from: 16, to: 21, loop: true, speed: 10},
     spawn: {from: 22, to: 29, loop: true, speed: 10},
-    idle: {from: 32, to: 36, loop: true, speed: 10},
+    idle: {from: 32, to: 37, loop: true, speed: 10},
+    stand: {from: 38, to: 39, loop: true, speed: 2},
   },
 });
 k.loadSprite("ring", "graphics/ring.png", {
@@ -33,7 +34,7 @@ k.loadSprite("motobug", "graphics/motobug.png", {
   sliceY: 2,
   anims: {
     run: { from: 0, to: 7, loop: true, speed: 8 },
-    crash: { from: 8, to: 15, loop: true, speed: 12 },
+    crash: { from: 8, to: 15, loop: true, speed: 15 },
   },
 });
 k.loadSprite('trafficLight', "graphics/trafficLight.png", {

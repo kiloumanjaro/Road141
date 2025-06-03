@@ -8,10 +8,14 @@ export function makeSonic(pos) {
     k.anchor("center"),
     k.pos(pos),
     k.body({ jumpForce: 1200 }),
+    
     {
       ringCollectUI: null,
+      controlsEnabled: true, // ✅ flag goes here
+
       setControls() {
         k.onButtonPress("jump", () => {
+          if (!this.controlsEnabled) return; // ✅ check flag
           if (this.isGrounded()) {
             this.play("jump");
             this.jump();
@@ -19,14 +23,17 @@ export function makeSonic(pos) {
           }
         });
       },
+
       setEvents() {
         this.onGround(() => {
+          if (!this.controlsEnabled) return; // ✅ check flag
           this.play("run");
         });
       },
     },
   ]);
 
+  // Attach ring counter UI
   sonic.ringCollectUI = sonic.add([
     k.text("", { font: "mania", size: 45 }),
     k.color(255, 255, 0),

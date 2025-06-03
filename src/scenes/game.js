@@ -8,19 +8,6 @@ k.loadSprite("pause-unclicked", "graphics/pause-unclicked.png");
 k.loadSprite("pause-clicked", "graphics/pause-clicked.png");
 
  gamePaused.set(false);
-function showTrafficLight(level) {
-  gamePaused.set(true);
-  k.wait(2, () => {
-    const center = k.vec2(k.width() / 2, (k.height() / 2) - 130);
-    const trafficLight = makeTrafficLight(center);
-
-    k.wait(5, () => {
-      gamePaused.set(false);
-      k.destroy(trafficLight);
-    });
-  });
-}
-
 function checkScore(score, level) {
   if (level === 1 && score > 47) return true;
   if (level === 2 && score > 94) return true;
@@ -52,6 +39,29 @@ export default function game() {
   sonic.setEvents();
 
   
+function showTrafficLight(level) {
+  gamePaused.set(true);
+  sonic.controlsEnabled = false; // Freeze Sonic's controls
+  sonic.play("stand");
+
+  k.wait(2, () => {
+    const center = k.vec2(k.width() / 2, (k.height() / 2) - 130);
+    const trafficLight = makeTrafficLight(center);
+
+    k.wait(5, () => {
+      k.destroy(trafficLight);
+      gamePaused.set(false);
+
+      // Resume Sonic
+      sonic.controlsEnabled = true;
+      if (!sonic.hidden && !teleporting) {
+        sonic.play("run");
+      }
+    });
+  });
+}
+
+  
   //health
   let frame = 0;
   let healthBar = k.add([
@@ -74,6 +84,8 @@ export default function game() {
   let pauseOverlay = null;
   let pauseText = null;
 
+
+  
   // Function to show pause menu
   function showPauseMenu() {
     // Create pause overlay
@@ -192,7 +204,7 @@ const levelText = k.add([
 
   // Game variables
   let gameSpeed = 500;
-  let level = 2;
+  let level = 1;
   let score = 0;
   let lives = 3;
   let teleporting = false;
@@ -316,11 +328,11 @@ const levelText = k.add([
 gamePaused.set(true);
 const message = k.add([
   k.text("You got hit! Recovering...", {
-    size: 36,
+    size: 64,
     font: "mania",
   }),
   k.anchor("center"),
-  k.pos(k.center()),
+  k.pos(k.center().x, k.center().y - 100),
   "resumePrompt"
 ]);
 
@@ -342,7 +354,7 @@ k.wait(1, () => {
 
 
     const warningText = k.add([
-      k.text(`Teleporting back to level ${level}`, {
+      k.text(`Teleporting Back to Level ${level}`, {
         font: "mania",
         size: 64,
       }),
@@ -376,7 +388,7 @@ k.wait(1, () => {
         sonic.play("run");
       });
       sonic.invincible = true; // re-enable invincible on re-show
-      k.wait(3, () => {
+      k.wait(2, () => {
         sonic.invincible = false;
       });
       k.wait(0.5, () => {
