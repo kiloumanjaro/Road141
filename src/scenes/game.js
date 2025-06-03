@@ -93,7 +93,7 @@ function showTrafficLight(level) {
       k.rect(k.width(), k.height()),
       k.pos(0, 0),
       k.color(0, 0, 0),
-      k.opacity(1),
+      k.opacity(0.8),
       k.z(100)
     ]);
 
