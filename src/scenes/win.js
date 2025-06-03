@@ -56,13 +56,13 @@ export default function lose(citySfx) {
   k.onUpdate(() => {
     if (!movingOffscreen) {
       if (sonic.pos.x < targetX) {
-        sonic.move(60, 0);
+        sonic.move(300, 0);
       } else {
         movingOffscreen = true;
       }
       sonic.pos.y = walkY;
     } else {
-      sonic.move(100, 0);
+      sonic.move(300, 0);
       sonic.pos.y = walkY;
 
       const sonicRightEdge = sonic.pos.x + sonic.width / 2;

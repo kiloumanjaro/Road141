@@ -5,6 +5,7 @@ import gameover from "./scenes/gameover";
 import mainMenu from "./scenes/mainMenu";
 import credits from "./scenes/credits";
 import lose from "./scenes/lose";
+import win from "./scenes/win";
 
 k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
 k.loadSprite("up-close", "graphics/shaped.png");
@@ -70,6 +71,7 @@ k.scene("credits", credits);
 k.scene("main-menu", mainMenu);
 k.scene("game", game);
 k.scene("lose", lose);
+k.scene("win", win);
 k.scene("gameover", gameover);
 
 k.go("disclaimer");
