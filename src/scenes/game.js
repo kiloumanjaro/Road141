@@ -23,8 +23,8 @@ export default function game() {
   // Background
   const bgPieceWidth = 960;
   const bgPieces = [
-    k.add([k.sprite("chemical-bg"), k.pos(0, 0), k.scale(1), k.opacity(0.8)]),
-    k.add([k.sprite("chemical-bg"), k.pos(bgPieceWidth, 0), k.scale(1), k.opacity(0.8)]),
+    k.add([k.sprite("up-bg"), k.pos(0, 0), k.scale(1), k.opacity(0.8)]),
+    k.add([k.sprite("up-bg"), k.pos(bgPieceWidth, 0), k.scale(1), k.opacity(0.8)]),
   ];
 
   // Platforms

@@ -8,7 +8,7 @@ import lose from "./scenes/lose";
 import win from "./scenes/win";
 import instructions from "./scenes/instructions";
 
-k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
+k.loadSprite("up-bg", "graphics/up-bg.png");
 k.loadSprite("up-close", "graphics/shaped.png");
 k.loadSprite("platforms", "graphics/floor.png");
 k.loadSprite("box", "graphics/box.png");

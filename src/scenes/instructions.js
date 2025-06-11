@@ -6,7 +6,7 @@ k.loadSprite("back-button", "graphics/back-button.png"); // You'll need to add t
 export default function instructions() {
   // Background
   k.add([
-    k.sprite("bg"),
+    k.sprite("up-far"),
     k.opacity(0.8),
   ]);
 
@@ -18,16 +18,40 @@ export default function instructions() {
     }),
     k.anchor("center"),
     k.pos(k.center().x - 20, 100),
-    k.color(255, 255, 255),
+    k.color(255, 255, 0),
     k.outline(4, k.rgb(0, 0, 0)),
   ]);
+
+  // Story Introduction
+  const storyText = [
+    "Ryan, now a professor teaching CMSC 141, finds himself spiraling back to his student days when a",
+    "mysterious compiler bug opens a time rift. To return, he must collect 141 points But HALToid, a rogue construct from an",
+    "abandoned compiler, traps him in infinite loops and paradoxes. One wrong move, and he's stuck retaking his own class… forever.",
+  ];
+
+  let introY = 170;
+  storyText.forEach((line) => {
+    k.add([
+      k.text(line, {
+        font: "mania",
+        size: 24,
+      }),
+      k.pos(k.center().x, introY),
+      k.anchor("center"),
+      k.color(k.rgb(255, 255, 255)),
+      k.outline(2, k.rgb(0, 0, 0)),
+    ]);
+    introY += 30;
+  });
 
   // Instructions content - organized in columns for better fit
   const leftColumnText = [
     "OBJECTIVE:",
-    "• Collect rings to increase your score",
+    "• Collect pizzas to increase your score",
     "• Reach 141 points to win the game",
     "• Survive through 3 challenging levels",
+    "",
+    "",
     "",
     "CONTROLS:",
     "• Mouse1 - Move Sir Ryan",
@@ -37,22 +61,20 @@ export default function instructions() {
 
   const rightColumnText = [
     "GAMEPLAY:",
-    "• Level 1: Collect rings (1 point each)",
-    "• Level 2: Rings worth 2 points each",
-    "• Level 3: Rings worth 3 points each",
+    "• Level numbers correspond to points per pizzas",
     "• Jump on enemies for bonus points",
     "• Avoid getting hit - you have 3 lives",
-    "• Use portals to go back to previous levels",
+    "",
+    "",
     "",
     "SCORING:",
-    "• Ring collection: 1-3 points per level",
     "• Enemy destruction: 5-7 points per level",
     "• Reach 48+ points to advance to Level 2",
     "• Reach 95+ points to advance to Level 3",
   ];
-
+  
   // Left column
-  let yPos = 200;
+  let yPos = 360;
   leftColumnText.forEach((line) => {
     const isHeader = line.includes("OBJECTIVE:") || line.includes("CONTROLS:");
     const isBullet = line.startsWith("•");
@@ -72,7 +94,7 @@ export default function instructions() {
   });
 
   // Right column
-  yPos = 200;
+  yPos = 360;
   rightColumnText.forEach((line) => {
     const isHeader = line.includes("GAMEPLAY:") || line.includes("SCORING:");
     const isBullet = line.startsWith("•");
@@ -93,17 +115,13 @@ export default function instructions() {
 
   // Back button
   const backButton = k.add([
-    k.text("BACK TO MENU", {
-      font: "mania",
-      size: 36,
-    }),
-    k.anchor("center"),
-    k.pos(k.center().x - 20, k.height() - 70),
+    k.sprite("back-button"),
+    k.pos(k.center().x - 930, k.center().y - 520),
+    k.scale(3),
     k.area(),
-    k.color(255, 255, 0),
-    k.outline(3, k.rgb(0, 0, 0)),
     "back-button"
   ]);
+
 
   // Back button click handler
   backButton.onClick(() => {
@@ -113,6 +131,15 @@ export default function instructions() {
   // Keyboard shortcut to go back
   k.onKeyPress("escape", () => {
     k.go("disclaimer");
+  });
+
+
+  backButton.onHover(() => {
+    backButton.scaleTo(3.1);
+  });
+
+  backButton.onHoverEnd(() => {
+    backButton.scaleTo(3);
   });
 
   // Optional: Add some visual flair

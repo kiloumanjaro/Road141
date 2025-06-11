@@ -3,7 +3,7 @@ import k from "../kaplayCtx";
 export default function credits() {
   // Background
   k.add([
-    k.sprite("chemical-bg"),
+    k.sprite("up-credits"),
     k.opacity(0.6),
   ]);
 
@@ -20,7 +20,7 @@ export default function credits() {
     }),
     k.anchor("center"),
     k.pos(k.center().x, 0),
-    k.color(255, 215, 0),
+    k.color(255, 255, 255)
   ]);
 
   // Credits data with more cinematic spacing
@@ -29,24 +29,27 @@ export default function credits() {
     { type: "credit", name: "CJ, Karl, Kint" },
     { type: "spacer" },
     
-    { type: "section", title: "PROGRAMMING" },
-    { type: "credit", name: "CJ, Karl, Kint" },
-    { type: "spacer" },
-    
-    { type: "section", title: "GAME DESIGN" },
+    { type: "section", title: "UI DESIGN" },
     { type: "credit", name: "Kint" },
     { type: "spacer" },
     
     { type: "section", title: "LEVEL DESIGN" },
     { type: "credit", name: "CJ" },
     { type: "spacer" },
-    
-    { type: "section", title: "QUALITY ASSURANCE" },
-    { type: "credit", name: "Beta Testers" },
-    { type: "credit", name: "Community Members" },
+
+    { type: "section", title: "SOUND DESIGN" },
+    { type: "credit", name: "Karl" },
+    { type: "spacer" },
+
+    { type: "section", title: "SPRITES" },
+    { type: "credit", name: "Kint" },
+    { type: "credit", name: "BDragon1727" },
+    { type: "credit", name: "Redreeh" },
+    { type: "credit", name: "Craftpix" },
     { type: "big_spacer" },
     
     { type: "section", title: "SPECIAL THANKS" },
+    { type: "credit", name: "freeCodeCamp.org" },
     { type: "credit", name: "Kaplay.js Community" },
     { type: "credit", name: "All Players & Supporters" },
     { type: "big_spacer" },
@@ -56,8 +59,6 @@ export default function credits() {
     { type: "credit", name: "JavaScript" },
     { type: "big_spacer" },
     
-    { type: "final", title: "THANK YOU FOR PLAYING!" },
-    { type: "big_spacer" },
     { type: "small", name: "© 2025 Road 141 Game" },
     { type: "small", name: "Version 1.0" },
   ];
@@ -69,33 +70,33 @@ export default function credits() {
       case "section":
         creditsContainer.add([
           k.text(item.title, {
-            font: "sink",
+            font: "mania",
             size: 36,
           }),
           k.anchor("center"),
           k.pos(k.center().x, yPosition),
           k.color(255, 215, 0), // Gold color for sections
         ]);
-        yPosition += 60;
+        yPosition += 45;
         break;
         
       case "credit":
         creditsContainer.add([
           k.text(item.name, {
-            font: "sink",
+            font: "mania",
             size: 28,
           }),
           k.anchor("center"),
           k.pos(k.center().x, yPosition),
           k.color(255, 255, 255),
         ]);
-        yPosition += 45;
+        yPosition += 40;
         break;
         
       case "final":
         creditsContainer.add([
           k.text(item.title, {
-            font: "sink",
+            font: "mania",
             size: 48,
           }),
           k.anchor("center"),
@@ -108,7 +109,7 @@ export default function credits() {
       case "small":
         creditsContainer.add([
           k.text(item.name, {
-            font: "sink",
+            font: "mania",
             size: 20,
           }),
           k.anchor("center"),
@@ -119,11 +120,11 @@ export default function credits() {
         break;
         
       case "spacer":
-        yPosition += 40;
+        yPosition += 70;
         break;
         
       case "big_spacer":
-        yPosition += 100;
+        yPosition += 85;
         break;
     }
   });

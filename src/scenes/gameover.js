@@ -2,10 +2,8 @@ import k from "../kaplayCtx";
 
 k.loadSprite("ending", "graphics/ending.png");
 k.loadSprite("end screen", "graphics/end screen.png");
-k.loadSprite("restart clicked", "graphics/restart clicked.png");
-k.loadSprite("restart unlicked", "graphics/restart unlicked.png");
-k.loadSprite("play clicked", "graphics/play clicked.png");
-k.loadSprite("play unclicked", "graphics/play unclicked.png");
+k.loadSprite("restart-button", "graphics/restart-button.png");
+k.loadSprite("play-button", "graphics/play.png");
 
 export default function gameover(citySfx) {
 if (citySfx) citySfx.paused = true;
@@ -60,7 +58,7 @@ if (citySfx) citySfx.paused = true;
   }
 
   const playButton = k.add([
-    k.sprite("play unclicked"),
+    k.sprite("play-button"),
     k.pos(k.center().x - 900, k.center().y - 320),
     k.scale(5),
     k.area(),
@@ -81,7 +79,7 @@ if (citySfx) citySfx.paused = true;
 
   // Create the restart button with click functionality
   const restartButton = k.add([
-    k.sprite("restart unlicked"),
+    k.sprite("restart-button"),
     k.pos(k.center().x - 900, k.center().y - 500),
     k.scale(5),
     k.area(), // Make it clickable

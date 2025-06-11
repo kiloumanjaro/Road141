@@ -1,16 +1,17 @@
 import k from "../kaplayCtx";
 
 k.loadSprite("road 141 second", "graphics/road 141 second.png");
-k.loadSprite("chemical-bg", "graphics/chemical-bg.png");
+k.loadSprite("up-bg", "graphics/up-bg.png");
 k.loadSprite("road141", "graphics/road141.png");
 k.loadSprite("start", "graphics/start.png");
 k.loadSprite("bg", "graphics/bg.png");
-k.loadSprite("instruction unclicked", "graphics/instruction unclicked.png");
-k.loadSprite("instructions clicked", "graphics/instructions clicked.png");
-k.loadSprite("star unclicked", "graphics/star unclicked.png");
-k.loadSprite("star clicked", "graphics/star clicked.png");
-k.loadSprite("credits unclicked", "graphics/credits unclicked.png");
-k.loadSprite("play", "graphics/play.png");
+k.loadSprite("up-far", "graphics/up-far.png");
+k.loadSprite("up-credits", "graphics/up-credits.png");
+k.loadSprite("instruction-button", "graphics/instruction-button.png");
+k.loadSprite("star-button", "graphics/star-button.png");
+k.loadSprite("back-button", "graphics/back-button.png");
+k.loadSprite("credits-button", "graphics/credits-button.png");
+k.loadSprite("play", "graphics/play-button.png");
 k.loadSound("lobby", "sound/lobby.mp3");
 
 export default function disclaimer() {
@@ -46,7 +47,7 @@ export default function disclaimer() {
   });
 
   const instructionButton = k.add([
-    k.sprite("instruction unclicked"),
+    k.sprite("instruction-button"),
     k.pos(k.center().x - 930, k.center().y - 520),
     k.scale(3),
     k.area(),
@@ -66,7 +67,7 @@ export default function disclaimer() {
   });
 
   const starButton = k.add([
-    k.sprite("star unclicked"),
+    k.sprite("star-button"),
     k.pos(k.center().x - 820, k.center().y - 520),
     k.scale(3),
     k.area(),
@@ -86,7 +87,7 @@ export default function disclaimer() {
   });
   
   const creditButton = k.add([
-    k.sprite("credits unclicked"),
+    k.sprite("credits-button"),
     k.pos(k.center().x + 700, k.center().y - 520),
     k.scale(3),
     k.area(),
