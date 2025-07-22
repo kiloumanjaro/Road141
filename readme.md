@@ -10,6 +10,7 @@
 
 <!-- PROJECT LOGO -->
 <div align="center">
+   <br />
   <a href="https://github.com/kiloumanjaro">
     <img src="public/graphics/icon.png" alt="Logo" width="60%" height="60%">
   </a>
@@ -17,7 +18,7 @@
   <p align="center">
     <br />
     <p align="center">
-      <a href="#"><img alt="Status" src="https://img.shields.io/badge/status-Production-green?style=flat&color=green" /></a>
+      <a href="#"><img alt="Status" src="https://img.shields.io/badge/status-Deployed-green?style=flat&color=green" /></a>
       <a href="https://www.python.org"><img alt="HTML Versions" src="https://img.shields.io/badge/HTML-5-orange?logo=html5&logoColor=white" /></a>
       <a href="https://github.com/kiloumanjaro/Road141/commits/main"><img alt="Last commit" src="https://proxy.cyb3rko.de/shields/github/last-commit/cyb3rko/flashdim?color=blue&logo=git&logoColor=white"/</a>
     </p>
@@ -65,8 +66,9 @@ Sonic-inspired side-scrolling platformer that is implemented using [Kaplay.js](h
 ### 💪🏼 Built With
 
 [![HTML5][HTML5]][HTML5-url]
-[![CSS3][CSS3]][CSS3-url]
 [![JavaScript][JavaScript]][JavaScript-url]
+[![CSS3][CSS3]][CSS3-url]
+
 
 <!-- SCREENSHOTS -->
 
