@@ -7,7 +7,7 @@ import { makePortal } from "../entities/portal";
 k.loadSprite("pause-unclicked", "graphics/pause-unclicked.png");
 k.loadSprite("pause-clicked", "graphics/pause-clicked.png");
 
- gamePaused.set(false);
+gamePaused.set(false);
 function checkScore(score, level) {
   if (level === 1 && score > 47) return true;
   if (level === 2 && score > 94) return true;
@@ -24,7 +24,12 @@ export default function game() {
   const bgPieceWidth = 960;
   const bgPieces = [
     k.add([k.sprite("up-bg"), k.pos(0, 0), k.scale(1), k.opacity(0.8)]),
-    k.add([k.sprite("up-bg"), k.pos(bgPieceWidth, 0), k.scale(1), k.opacity(0.8)]),
+    k.add([
+      k.sprite("up-bg"),
+      k.pos(bgPieceWidth, 0),
+      k.scale(1),
+      k.opacity(0.8),
+    ]),
   ];
 
   // Platforms
@@ -38,37 +43,35 @@ export default function game() {
   sonic.setControls();
   sonic.setEvents();
 
-  
-function showTrafficLight(level) {
-  gamePaused.set(true);
-  sonic.controlsEnabled = false; // Freeze Sonic's controls
-  sonic.play("stand");
+  function showTrafficLight(level) {
+    gamePaused.set(true);
+    sonic.controlsEnabled = false; // Freeze Sonic's controls
+    sonic.play("stand");
 
-  k.wait(2, () => {
-    const center = k.vec2(k.width() / 2, (k.height() / 2) - 130);
-    const trafficLight = makeTrafficLight(center);
+    k.wait(2, () => {
+      const center = k.vec2(k.width() / 2, k.height() / 2 - 130);
+      const trafficLight = makeTrafficLight(center);
 
-    k.wait(5, () => {
-      k.destroy(trafficLight);
-      gamePaused.set(false);
+      k.wait(5, () => {
+        k.destroy(trafficLight);
+        gamePaused.set(false);
 
-      // Resume Sonic
-      sonic.controlsEnabled = true;
-      if (!sonic.hidden && !teleporting) {
-        sonic.play("run");
-      }
+        // Resume Sonic
+        sonic.controlsEnabled = true;
+        if (!sonic.hidden && !teleporting) {
+          sonic.play("run");
+        }
+      });
     });
-  });
-}
+  }
 
-  
   //health
   let frame = 0;
   let healthBar = k.add([
     k.sprite("lives"),
     k.anchor("center"),
     k.pos(350, 60),
-    k.scale(7)
+    k.scale(7),
   ]);
 
   // Pause/Resume UI
@@ -77,7 +80,7 @@ function showTrafficLight(level) {
     k.sprite("pause-unclicked"),
     k.pos(k.center().x - 930, k.center().y - 520),
     k.area(),
-    "pause-button"
+    "pause-button",
   ]);
 
   let resumeButton = null;
@@ -85,8 +88,6 @@ function showTrafficLight(level) {
   let pauseOverlay = null;
   let pauseText = null;
 
-
-  
   // Function to show pause menu
   function showPauseMenu() {
     // Create pause overlay
@@ -95,7 +96,7 @@ function showTrafficLight(level) {
       k.pos(0, 0),
       k.color(0, 0, 0),
       k.opacity(0.8),
-      k.z(100)
+      k.z(100),
     ]);
 
     // Create pause text
@@ -104,7 +105,7 @@ function showTrafficLight(level) {
       k.anchor("center"),
       k.pos(k.center().x, k.center().y - 100),
       k.color(255, 255, 255),
-      k.z(101)
+      k.z(101),
     ]);
 
     // Create resume button
@@ -115,7 +116,7 @@ function showTrafficLight(level) {
       k.area(),
       k.color(255, 255, 0),
       k.z(101),
-      "resume-button"
+      "resume-button",
     ]);
 
     mainmenuButton = k.add([
@@ -125,7 +126,7 @@ function showTrafficLight(level) {
       k.area(),
       k.color(255, 255, 0),
       k.z(101),
-      "mainmenu-button"
+      "mainmenu-button",
     ]);
 
     // Hide pause button when paused
@@ -153,15 +154,14 @@ function showTrafficLight(level) {
     pauseButton.use(k.sprite("pause-unclicked"));
   }
 
-
   // Pause functionality
   pauseButton.onClick(() => {
     if (!gamePaused.get()) {
       gamePaused.set(true);
-      pauseButton.use(k.sprite("pause-clicked"));  // Change to clicked version
+      pauseButton.use(k.sprite("pause-clicked")); // Change to clicked version
       showPauseMenu();
     }
-  }); 
+  });
 
   // Keyboard shortcut for main menu (M key)
   k.onKeyPress("m", () => {
@@ -194,13 +194,12 @@ function showTrafficLight(level) {
     }
   });
 
-
-const box = k.add([
-  k.sprite("box"),
-  k.anchor("center"),
-  k.pos(1720, 165),
-  k.scale(2.5)
-]);
+  const box = k.add([
+    k.sprite("box"),
+    k.anchor("center"),
+    k.pos(1720, 165),
+    k.scale(2.5),
+  ]);
 
   gamePaused.set(true);
   k.wait(0, () => {
@@ -212,17 +211,15 @@ const box = k.add([
     k.pos(1680, 85),
   ]);
 
-
-const levelText = k.add([
-  k.text("LEVEL 1", {
-    size: 39,
-    font: "mania", // Custom font
-  }),
-  k.color(k.rgb(139, 171, 191)), // Maroon color for the text
-  k.outline(5, k.rgb(0, 0, 0)), // 4px outline in gold color
-  k.pos(1660, 256),
-]);
-
+  const levelText = k.add([
+    k.text("LEVEL 1", {
+      size: 39,
+      font: "mania", // Custom font
+    }),
+    k.color(k.rgb(139, 171, 191)), // Maroon color for the text
+    k.outline(5, k.rgb(0, 0, 0)), // 4px outline in gold color
+    k.pos(1660, 256),
+  ]);
 
   // Game variables
   let gameSpeed = 500;
@@ -246,7 +243,7 @@ const levelText = k.add([
     } else {
       score += inc;
     }
-    
+
     scoreText.text = `${score}`;
     sonic.ringCollectUI.text = `+${inc}`;
     k.wait(1, () => (sonic.ringCollectUI.text = ""));
@@ -257,12 +254,12 @@ const levelText = k.add([
       levelText.text = `LEVEL ${level}`;
       k.wait(2, () => {
         gameSpeed += 500;
-        
       });
     }
 
     // game finished
-    if (level === 3 && score >= 141) {
+    // if (level === 3 && score >= 141) {
+    if (score >= 141) {
       score = 141;
       k.setData("current-score", score);
       k.go("win", citySfx); // move to ending
@@ -278,7 +275,6 @@ const levelText = k.add([
       if (enemy.exists()) k.destroy(enemy);
     });
 
-    
     if (!sonic.isGrounded()) {
       k.play("destroy", { volume: 0.5 });
       k.play("hyper-ring", { volume: 0.5 });
@@ -306,7 +302,6 @@ const levelText = k.add([
         k.wait(3, () => {
           gameSpeed += 500;
         });
-        
       }
       // game finished
       if (level === 3 && score >= 141) {
@@ -321,50 +316,48 @@ const levelText = k.add([
     sonic.play("dizzy");
 
     if (lives > 1) {
-        k.wait(1, () => {
+      k.wait(1, () => {
         sonic.play("run");
       });
     }
 
-    
     if (frame < 3) frame = (frame + 1) % healthBar.numFrames();
     healthBar.frame = frame;
 
-  // If on ground, pause and wait for input
-  k.play("hurt", { volume: 0.5 });
-  sonic.play("idle");
+    // If on ground, pause and wait for input
+    k.play("hurt", { volume: 0.5 });
+    sonic.play("idle");
 
-  if (lives > 1) {
-    lives--;
-    if (frame < 3) frame = (frame + 1) % healthBar.numFrames();
-    healthBar.frame = frame;
-  } else {
-    gameSpeed = 0;
-    k.wait(3, () => {
-      k.setData("current-score", score);
-      k.go("lose", citySfx);
+    if (lives > 1) {
+      lives--;
+      if (frame < 3) frame = (frame + 1) % healthBar.numFrames();
+      healthBar.frame = frame;
+    } else {
+      gameSpeed = 0;
+      k.wait(3, () => {
+        k.setData("current-score", score);
+        k.go("lose", citySfx);
+      });
+      return;
+    }
+
+    gamePaused.set(true);
+    const message = k.add([
+      k.text("You got hit! Recovering...", {
+        size: 64,
+        font: "mania",
+      }),
+      k.anchor("center"),
+      k.pos(k.center().x, k.center().y - 100),
+      "resumePrompt",
+    ]);
+
+    k.wait(1, () => {
+      gamePaused.set(false);
+      sonic.play("run");
+      message.destroy();
     });
-    return;
-  }
-
-gamePaused.set(true);
-const message = k.add([
-  k.text("You got hit! Recovering...", {
-    size: 64,
-    font: "mania",
-  }),
-  k.anchor("center"),
-  k.pos(k.center().x, k.center().y - 100),
-  "resumePrompt"
-]);
-
-k.wait(1, () => {
-  gamePaused.set(false);
-  sonic.play("run");
-  message.destroy();
-});
-
-});
+  });
 
   sonic.onCollide("portal", () => {
     if (gamePaused.get()) return;
@@ -374,7 +367,6 @@ k.wait(1, () => {
     sonic.hidden = true;
     teleporting = true;
 
-
     const warningText = k.add([
       k.text(`Teleporting Back to Level ${level}`, {
         font: "mania",
@@ -383,8 +375,6 @@ k.wait(1, () => {
       k.anchor("center"),
       k.pos(k.center()),
     ]);
-    
-  
 
     k.wait(2, () => k.destroy(warningText));
     k.wait(1, () => {
@@ -393,35 +383,31 @@ k.wait(1, () => {
       spawningPortal.play("open");
       k.wait(1, () => {
         spawningPortal.play("spin");
-      })
-      
-    k.wait(7, () => {
-      
-      
-
-      // When the "spawn" animation finishes, play "run"
-      spawningPortal.play("close");
-      k.wait(2.2, () => {
-      gamePaused.set(false);
-      });
-      sonic.hidden = false;
-      sonic.play("spawn");
-      k.wait(1, () => {
-        sonic.play("run");
-      });
-      sonic.invincible = true; // re-enable invincible on re-show
-      k.wait(2, () => {
-        sonic.invincible = false;
-      });
-      k.wait(0.5, () => {
-      k.destroy(spawningPortal); // destroy immediately  
       });
 
-      teleporting = false;
-      scoreText.text = `${score}`;
-      levelText.text = `LEVEL ${level}`;
-    });
+      k.wait(7, () => {
+        // When the "spawn" animation finishes, play "run"
+        spawningPortal.play("close");
+        k.wait(2.2, () => {
+          gamePaused.set(false);
+        });
+        sonic.hidden = false;
+        sonic.play("spawn");
+        k.wait(1, () => {
+          sonic.play("run");
+        });
+        sonic.invincible = true; // re-enable invincible on re-show
+        k.wait(2, () => {
+          sonic.invincible = false;
+        });
+        k.wait(0.5, () => {
+          k.destroy(spawningPortal); // destroy immediately
+        });
 
+        teleporting = false;
+        scoreText.text = `${score}`;
+        levelText.text = `LEVEL ${level}`;
+      });
     });
   });
 
@@ -441,7 +427,12 @@ k.wait(1, () => {
   }
 
   function spawnRing() {
-    const waitTime = level === 1 ? k.rand(0.5, 3) : level === 2 ? k.rand(0.5, 2) : k.rand(0.5, 1);
+    const waitTime =
+      level === 1
+        ? k.rand(0.5, 3)
+        : level === 2
+        ? k.rand(0.5, 2)
+        : k.rand(0.5, 1);
     if (!gamePaused.get()) {
       const ring = makeRing(k.vec2(1950, 745));
       ring.onUpdate(() => {
@@ -483,8 +474,8 @@ k.wait(1, () => {
   // Game loop - Modified to check pause state
   k.onUpdate(() => {
     if (gameSpeed == 0 || gamePaused.get()) return;
-    
-  if (gamePaused.get() || gameSpeed === 0) return;
+
+    if (gamePaused.get() || gameSpeed === 0) return;
     if (bgPieces[1].pos.x < 0) {
       bgPieces[0].moveTo(bgPieces[1].pos.x + bgPieceWidth * 2, 0);
       bgPieces.push(bgPieces.shift());
@@ -492,7 +483,7 @@ k.wait(1, () => {
     bgPieces[0].move(-100, 0);
     bgPieces[1].moveTo(bgPieces[0].pos.x + bgPieceWidth * 2, 0);
 
-    bgPieces.forEach(bg => bg.moveTo(bg.pos.x, -sonic.pos.y / 10 - 50));
+    bgPieces.forEach((bg) => bg.moveTo(bg.pos.x, -sonic.pos.y / 10 - 50));
 
     if (platforms[1].pos.x < 0) {
       platforms[0].moveTo(platforms[1].pos.x + platforms[1].width * 3, 820);

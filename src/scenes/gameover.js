@@ -3,10 +3,10 @@ import k from "../kaplayCtx";
 k.loadSprite("ending", "graphics/ending.png");
 k.loadSprite("end screen", "graphics/end screen.png");
 k.loadSprite("restart-button", "graphics/restart-button.png");
-k.loadSprite("play-button", "graphics/play.png");
+k.loadSprite("home-button", "graphics/home-button.png");
 
 export default function gameover(citySfx) {
-if (citySfx) citySfx.paused = true;
+  if (citySfx) citySfx.paused = true;
   let bestScore = k.getData("best-score");
   const currentScore = k.getData("current-score");
 
@@ -34,23 +34,16 @@ if (citySfx) citySfx.paused = true;
   const reachedGoal = currentScore >= 141;
 
   if (reachedGoal) {
-    k.add([
-      k.sprite("ending"),
-      k.opacity(0.8),
-    ]); 
+    k.add([k.sprite("ending"), k.opacity(0.8)]);
   } else {
-    k.add([
-      k.sprite("end screen"),
-      k.opacity(0.9),
-    ]);
-
+    k.add([k.sprite("end screen"), k.opacity(0.9)]);
 
     // Add the current score next to the "/141" on the chalkboard
     k.add([
-      k.text(`${currentScore}`, { 
+      k.text(`${currentScore}`, {
         font: "pencilant",
         size: 250,
-        color: k.Color.WHITE 
+        color: k.Color.WHITE,
       }),
       k.anchor("center"),
       k.pos(k.center().x + 280, k.center().y - 230), // Position it to the left of "/141"
@@ -58,11 +51,11 @@ if (citySfx) citySfx.paused = true;
   }
 
   const playButton = k.add([
-    k.sprite("play-button"),
+    k.sprite("home-button"),
     k.pos(k.center().x - 900, k.center().y - 320),
     k.scale(5),
     k.area(),
-    "play-button"
+    "play-button",
   ]);
 
   playButton.onClick(() => {
@@ -83,7 +76,7 @@ if (citySfx) citySfx.paused = true;
     k.pos(k.center().x - 900, k.center().y - 500),
     k.scale(5),
     k.area(), // Make it clickable
-    "restart-btn" // Add a tag for identification
+    "restart-btn", // Add a tag for identification
   ]);
 
   // Handle button interactions
@@ -98,7 +91,7 @@ if (citySfx) citySfx.paused = true;
   restartButton.onClick(() => {
     // Change to clicked sprite
     restartButton.use(k.sprite("restart clicked"));
-    
+
     // Optional: Add a brief delay before transitioning to make the click feel responsive
     k.wait(0.1, () => {
       k.go("game");
