@@ -7,19 +7,19 @@ k.loadSprite("home-button", "graphics/home-button.png");
 
 export default function gameover(citySfx) {
   if (citySfx) citySfx.paused = true;
+
   let bestScore = k.getData("best-score");
   const currentScore = k.getData("current-score");
-
   const rankGrades = ["F", "E", "D", "C", "B", "A", "S"];
   const rankValues = [50, 80, 100, 200, 300, 400, 500];
 
   let currentRank = "F";
   let bestRank = "F";
+
   for (let i = 0; i < rankValues.length; i++) {
     if (rankValues[i] < currentScore) {
       currentRank = rankGrades[i];
     }
-
     if (rankValues[i] < bestScore) {
       bestRank = rankGrades[i];
     }
@@ -89,10 +89,7 @@ export default function gameover(citySfx) {
   });
 
   restartButton.onClick(() => {
-    // Change to clicked sprite
-    restartButton.use(k.sprite("restart clicked"));
-
-    // Optional: Add a brief delay before transitioning to make the click feel responsive
+    // Don't try to change the sprite, just transition to the game
     k.wait(0.1, () => {
       k.go("game");
     });
@@ -100,7 +97,7 @@ export default function gameover(citySfx) {
 
   // Also handle touch/mobile interactions
   restartButton.onTouchStart(() => {
-    restartButton.use(k.sprite("restart clicked"));
+    // Don't change sprite here either
   });
 
   restartButton.onTouchEnd(() => {
