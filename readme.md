@@ -25,7 +25,7 @@ A Sonic-inspired side-scrolling platformer developed as a project for **CMSC 141
 
 #### Prerequisites
 
-- [Node.js](https://nodejs.org/) installed on your machine or play immediately on [Itch.io](https://kiloumanjaro.itch.io/road141)
+- [Node.js](https://nodejs.org/) installed on your machine or play immediately on [Itch.io](https://kiloumanjaro.itch.io/road141) or [GitHub](https://kiloumanjaro.github.io/Road141/)
 
 #### Installation & Running the Game
 
