@@ -20,7 +20,7 @@
     <p align="center">
       <a href="#"><img alt="Status" src="https://img.shields.io/badge/status-Deployed-green?style=flat&color=green" /></a>
       <a href="https://www.python.org"><img alt="HTML Versions" src="https://img.shields.io/badge/HTML-5-orange?logo=html5&logoColor=white" /></a>
-      <a href="https://github.com/kiloumanjaro/Road141/commits/main"><img alt="Last commit" src="https://proxy.cyb3rko.de/shields/github/last-commit/cyb3rko/flashdim?color=blue&logo=git&logoColor=white"/</a>
+      <a href="https://github.com/kiloumanjaro/Road141/commits/main"><img alt="Last commit" src="https://proxy.cyb3rko.de/shields/github/last-commit/kiloumanjaro/Road141?color=blue&logo=git&logoColor=white"/</a>
     </p>
     <a href="https://github.com/kiloumanjaro/Road141/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
@@ -170,3 +170,4 @@ This project is licensed under the Unlicense License - see the [LICENSE](LICENSE
 [JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 [CSS3]: https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css&logoColor=fff
 [CSS3-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
+
